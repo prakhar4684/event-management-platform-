@@ -1,0 +1,25 @@
+const mongoose=require('mongoose');
+
+const otpSchema=new mongoose.Schema({
+    email:{
+        type:String,
+        required:true,
+    },
+    otp:{
+        type:String,
+        required:true,
+    },
+    action:{
+        type:String,
+        enum:['account_verification','event_booking'],
+        required:true,
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now,
+        expires:3600, // OTP will expire after 5 minutes
+    }
+});
+module.exports =
+    mongoose.models.OTP ||
+    mongoose.model('OTP', otpSchema);
